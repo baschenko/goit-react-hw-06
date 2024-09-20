@@ -2,8 +2,12 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import s from './ContactForm.module.css';
 import { nanoid } from 'nanoid';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
+
   // Налаштовуємо Валідацію
   const registerShema = Yup.object({
     name: Yup.string()
@@ -23,11 +27,11 @@ const ContactForm = ({ onSubmit }) => {
     number: '',
   };
 
-  // Обробляємо форму при Submit
+  // Обробляємо форму при Submit відправляємо addContact
 
   const handleSubmit = (date, actions) => {
     date.id = nanoid();
-    onSubmit(date);
+    dispatch(addContact(date));
     actions.resetForm();
   };
 

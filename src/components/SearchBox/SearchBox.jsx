@@ -1,9 +1,15 @@
+import { useDispatch, useSelector } from 'react-redux';
 import s from './SearchBox.module.css';
+import { selectNameFilter } from '../../redux/selectors';
+import { changeFilter } from '../../redux/filtersSlice';
 
-const SearchBox = ({ changeFilter, filter }) => {
-  // Оброблюємо значення пошукового поля і передеємо в Арр
+const SearchBox = () => {
+  const filter = useSelector(selectNameFilter);
+  const dispatch = useDispatch();
+
+  // Обробляємо значення пошукового поля і передеємо changeFilter у стор фільрів
   const handleChange = e => {
-    changeFilter(e.target.value);
+    dispatch(changeFilter(e.target.value));
   };
 
   return (

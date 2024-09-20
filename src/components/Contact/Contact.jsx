@@ -1,8 +1,15 @@
 import { IoPersonSharp } from 'react-icons/io5';
 import { MdPhone } from 'react-icons/md';
 import s from './Contact.module.css';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/contactsSlice';
 
-const Contact = ({ name, number, id, onDelete }) => {
+const Contact = ({ name, number, id }) => {
+  const dispatch = useDispatch();
+
+  // Обробляємо натисканя onClick і передеємо deleteContact
+  const handleDelete = () => dispatch(deleteContact(id));
+
   return (
     <>
       <div className={s.textBlock}>
@@ -15,7 +22,7 @@ const Contact = ({ name, number, id, onDelete }) => {
           {number}
         </p>
       </div>
-      <button type="button" className={s.btn} onClick={() => onDelete(id)}>
+      <button type="button" className={s.btn} onClick={handleDelete}>
         Delete
       </button>
     </>
